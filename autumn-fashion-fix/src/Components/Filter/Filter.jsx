@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
-import './Filter.css';
+//import './Filter.css';
 
 
 class Filter extends Component {

@@ -14,7 +14,13 @@ class App extends Component {
     constructor() {
     super();
     this.state = {
-        posts: [],
+        posts: [{
+        "image_id": 226,
+        "text": "Seen on the catwalks at Chanel, Ralph Lauren, and Topshop Unique; think luscious icy bright pastels to add a soft pop of colour to the dull winter months. It works beautifully against grey tailoring and comes in a variety of textures from sugar plum boucle to cashmere soft duck egg blue\u2026",
+        "link": "http:\/\/www.bullring.co.uk\/news\/fashion\/aff-edit-new-pastels",
+        "link_text": "Click here to explore the trend.",
+        "image_url": "http://placehold.it/600x350"
+    }],
         filter: null
       };
   }
@@ -33,8 +39,8 @@ class App extends Component {
     return (
       <container>
         <Filter onFilter={filter => this.handleFilter(filter)}/>
-        <Posts  />
-        {JSON.stringify(this.state.filter)}
+        <Posts items={this.state.posts} />
+
       </container>
     );
   }

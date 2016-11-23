@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
-import { Grid, Row, Col, Image } from 'react-bootstrap';
+import { Grid, Row } from 'react-bootstrap';
+import Post from '../Post/Post';
 import './Posts.css';
 
 
@@ -10,24 +11,16 @@ class Posts extends Component {
 
 
   render() {
+    const posts = this.props.items.map(
+                    function iterator(item, i) {
+                        return(<Post key={i} data={item} />);
+                      }, this);
     return (
-
       <Grid >
           <Row>
-             <Col xs={12} md={4}>
-               <div className="post">
-
-                <Image src="https://media.giphy.com/media/3o8doNAGKZXsrsgzW8/giphy.gif" rounded />
-                <a href="#">link</a>
-                <p>kjhgjlfghxldgh</p>
-
-               </div>
-
-              </Col>
+             { posts }
           </Row>
       </Grid>
-
-
     );
   }
 }
