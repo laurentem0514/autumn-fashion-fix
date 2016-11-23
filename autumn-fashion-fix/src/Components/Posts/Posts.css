@@ -1,0 +1,14 @@
+.post{
+  background-color: lightblue;
+  text-align: center;
+  width: 300px;
+  border-radius: 10px;
+}
+
+.post a {
+  display: block;
+}
+
+.post img {
+  width:300px;
+}
