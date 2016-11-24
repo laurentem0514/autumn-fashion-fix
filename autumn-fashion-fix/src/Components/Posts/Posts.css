@@ -1,14 +1,55 @@
 .post{
-  background-color: lightblue;
   text-align: center;
   width: 300px;
   border-radius: 10px;
+  color: lightgrey;
+  box-shadow: 2px 2px 13px 0 rgba(1,1,0,.1);
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 12px;
+  font-weight: normal;
 }
 
 .post a {
   display: block;
+  color: #fc7e99;
 }
 
 .post img {
-  width:300px;
+  width:280px;
 }
+
+.post-manual:before {
+    content: '';
+    height: 40px;  /*height of icon */
+    width: 40px;  /*width of icon */
+    position: absolute;
+    top: 0px;
+    left: 40px;
+    background-image: url('/images/fashion.png');
+    background-size: 40px 40px;
+}
+
+.post-twitter:before {
+    content: '';
+    height: 50px;  /*height of icon */
+    width: 50px;  /*width of icon */
+    position: absolute;
+    top: -10px;
+    left: 40px;
+    background-image: url('/images/twitter.png');
+    background-size: 50px 50px;
+}
+
+.post-instagram:before {
+    content: '';
+    height: 40px;  /*height of icon */
+    width: 40px;  /*width of icon */
+    position: absolute;
+    top: 0px;
+    left: 40px;
+    background-image: url('/images/instagram.png');
+    background-size: 40px 40px;
+}
+
+

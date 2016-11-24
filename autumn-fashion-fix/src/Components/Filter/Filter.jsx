@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
-//import './Filter.css';
+import { Button, Grid, Row, Col } from 'react-bootstrap';
+import './Filter.css';
 
 
 class Filter extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
         manualSelected: false,
         instagramSelected: false,
@@ -41,11 +41,18 @@ class Filter extends Component {
     const twitterAttr = this.getButtonAttr('twitter');
 
     return (
-      <div>
-        <Button onClick={() => this.handleFilter('manual')} {...manualAttr}>Manual</Button>
-        <Button onClick={() => this.handleFilter('instagram')} {...instagramAttr}>Instagram</Button>
-        <Button onClick={() => this.handleFilter('twitter')} {...twitterAttr}>Twitter</Button>
-        <Button onClick={() => this.handleFilter('')}>Reset</Button>
+      <div className="filters">
+        <Grid>
+          <Row>
+            <Col xs={12} md={12}>
+              <span>Filters </span>
+              <Button bsSize="xsmall" onClick={() => this.handleFilter('manual')} {...manualAttr}>Manual</Button>
+              <Button bsSize="xsmall" onClick={() => this.handleFilter('instagram')} {...instagramAttr}>Instagram</Button>
+              <Button bsSize="xsmall" onClick={() => this.handleFilter('twitter')} {...twitterAttr}>Twitter</Button>
+              <Button bsSize="xsmall" onClick={() => this.handleFilter('')}>All</Button>
+            </Col>
+          </Row>
+        </Grid>
       </div>
 
     );

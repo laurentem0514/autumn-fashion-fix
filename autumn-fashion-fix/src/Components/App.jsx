@@ -1,46 +1,70 @@
 import React, { Component } from 'react';
+import { Button } from 'react-bootstrap';
 import Posts from './Posts/Posts';
 import Filter from './Filter/Filter';
 import './App.css';
-
-// import _ from 'lodash';
-
-// var result = _(data)
-//             .groupBy(x => x.serviceName)
-//             .map((value, key) => ({service: key, posts: value}))
-//             .value();
 
 class App extends Component {
     constructor() {
     super();
     this.state = {
-        posts: [{
-        "image_id": 226,
-        "text": "Seen on the catwalks at Chanel, Ralph Lauren, and Topshop Unique; think luscious icy bright pastels to add a soft pop of colour to the dull winter months. It works beautifully against grey tailoring and comes in a variety of textures from sugar plum boucle to cashmere soft duck egg blue\u2026",
-        "link": "http:\/\/www.bullring.co.uk\/news\/fashion\/aff-edit-new-pastels",
-        "link_text": "Click here to explore the trend.",
-        "image_url": "http://placehold.it/600x350"
-    }],
-        filter: null
+        posts: [],
+        visiblePosts: [],
+        filter: {
+          manualSelected: false,
+          twitterSelected: false,
+          instagramSelected: false
+        },
+        pageSize: 15
       };
+
+    this.filterPost = (post, filter) => {
+      if (!filter.manualSelected
+        && !filter.twitterSelected
+        && !filter.instagramSelected){
+        return true;
+      }
+
+      return (filter.manualSelected && post.service_name === 'Manual')
+              || (filter.twitterSelected && post.service_name === 'Twitter')
+              || (filter.instagramSelected && post.service_name === 'Instagram');
+
+    }
+
+    this.loadData = () => {
+      fetch(`posts.json?skip=${this.state.posts.length}&pageSize=${this.state.pageSize}`)
+        .then( (response) => {
+            return response.json() })
+                .then( (json) => {
+                  const newPosts = [...this.state.posts, ...json.items.slice(0, this.state.pageSize)];
+
+                  this.setState({
+                    posts: newPosts,
+                    visiblePosts: newPosts.filter((post) => { return this.filterPost(post,this.state.filter);})
+                  });
+                })
+   }
   }
 
-    updateManualPosts(){
-     this.setState({ posts: [...this.state.manualPosts, 1]});
-  }
+  componentDidMount() {
+        this.loadData();
+    };
 
   handleFilter(filter){
-    this.setState({ filter: filter});
-
+    this.setState({
+      filter: filter,
+      visiblePosts: this.state.posts.filter((post) => { return this.filterPost(post,filter);})
+    });
   }
-
 
   render() {
     return (
       <container>
         <Filter onFilter={filter => this.handleFilter(filter)}/>
-        <Posts items={this.state.posts} />
-
+        <Posts items={this.state.visiblePosts} />
+        <div className="pager">
+         <Button onClick={() => this.loadData()} bsStyle="primary" block>More</Button>
+        </div>
       </container>
     );
   }
